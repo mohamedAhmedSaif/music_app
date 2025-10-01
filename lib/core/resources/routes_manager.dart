@@ -10,26 +10,25 @@ class RoutesManager {
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     Widget page;
-
-    switch (settings.name) {
-      case RoutesName.onBoardingRoute:
-        page = OnBoardingScreen();
-      case RoutesName.homeRoute:
-        page = HomePage();
-      case RoutesName.playMusicRoute:
-        page = PlayMusicScreen();
-
-      default:
-        page = UnKnownRoute();
+    if (settings.name == RoutesName.onBoardingRoute.name) {
+      page = OnBoardingScreen();
+    } else if (settings.name == RoutesName.homeRoute.name) {
+      page = HomePage();
+    } else if (settings.name == RoutesName.playMusicRoute.name) {
+      page = PlayMusicScreen();
+    } else {
+      page = UnKnownRoute();
     }
     return MaterialPageRoute(builder: (context) => page, settings: settings);
   }
 }
 
-class RoutesName {
-  RoutesName._();
+enum RoutesName {
+  onBoardingRoute("/"),
+  homeRoute("/home"),
+  playMusicRoute("/playMusic");
 
-  static const String onBoardingRoute = "/";
-  static const String homeRoute = "/home";
-  static const String playMusicRoute = "/playMusic";
+  final String name;
+
+  const RoutesName(this.name);
 }
